@@ -6,11 +6,19 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/08 13:05:00 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/08 17:44:04 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <string.h>
+
+void ft_free(char **buffer)
+{
+	if (*buffer)
+		free(*buffer);
+	*buffer = NULL;
+}
 
 char	*ft_line(char *remaining)
 {
@@ -74,6 +82,8 @@ char	*read_and_collect(int fd, char *collect)
 	char	*temp;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!collect)
+		collect = strdup("");
 	if (!buffer)
 		return (NULL);
 	bytes = 1;
@@ -82,16 +92,19 @@ char	*read_and_collect(int fd, char *collect)
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
 		{
-			free(buffer);
-			free(collect);
+			ft_free(&buffer);
+			ft_free(&collect);
 			return (NULL);
 		}
 		buffer[bytes] = '\0';
 		temp = collect;
+		if(!temp)
+			ft_free(&temp);
+		
 		collect = ft_strjoin(collect, buffer);
-		free (temp);
+		ft_free (&temp);
 	}
-	free (buffer);
+	ft_free (&buffer);
 	return (collect);
 }
 
@@ -103,31 +116,31 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	collect = read_and_collect(fd, collect);
-	if (!collect)
-		return (NULL);
+	if (!collect || !collect[0])
+		return (ft_free(&collect), NULL);
 	line = ft_line(collect);
 	collect = update_remaining(collect);
 	return (line);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
 
-	fd = open("example.txt", O_RDONLY);
-	if (fd == -1)
-	{
-		printf("ERROR OPENING FILE!\n");
-		return (1);
-	}
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (0);
-}
+// 	fd = open("example.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		printf("ERROR OPENING FILE!\n");
+// 		return (1);
+// 	}
+// 	line = get_next_line(fd);
+// 	while (line != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
