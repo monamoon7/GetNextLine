@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/08 00:31:57 by mona          ########   odam.nl         */
+/*   Updated: 2024/03/08 04:58:25 by mona          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_line(char *remaining)
 	char	*line;
 
 	i = 0;
-	if (!emaining(i))
+	if (!remaining[i])
 		return (NULL);
 	while (remaining[i] && remaining[i] != '\n')
 		i++;
@@ -107,4 +107,25 @@ char	*get_next_line(int fd)
 	line = ft_line(collect);
 	collect = update_remaining(collect);
 	return (line);
+}
+
+int	main(void)
+{
+	int		fd;
+	char	*line;
+
+	fd = open("example.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("ERROR OPENING FILE!\n");
+		return (1);
+	}
+	
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	close(fd);
+	return (0);
 }
