@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/08 04:58:25 by mona          ########   odam.nl         */
+/*   Updated: 2024/03/08 13:05:00 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	*update_remaining(char *remaining)
 		free (remaining);
 		return (NULL);
 	}
-	new_remaining = (char *)malloc(sizeof(char) * (ft_strlen(remaining) - i + 1));
+	new_remaining = (char *)malloc(sizeof(char)
+			* (ft_strlen(remaining) - i + 1));
 	if (!new_remaining)
 		return (NULL);
 	i++;
@@ -120,11 +121,12 @@ int	main(void)
 		printf("ERROR OPENING FILE!\n");
 		return (1);
 	}
-	
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		printf("%s", line);
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (0);
