@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.c                                    :+:    :+:            */
+/*   get_next_line_bonus.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/15 17:00:24 by mona          ########   odam.nl         */
+/*   Created: 2024/03/15 15:47:30 by mona          #+#    #+#                 */
+/*   Updated: 2024/03/15 17:08:00 by mona          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void ft_free(char **buffer)
 {
@@ -82,7 +82,7 @@ char	*read_and_collect(int fd, char *collect)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!collect)
-		collect = strdup("");
+		collect = ft_strdup("");
 	if (!buffer)
 		return (NULL);
 	bytes = 1;
@@ -110,15 +110,15 @@ char	*read_and_collect(int fd, char *collect)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*collect;
+	static char	*collect[OPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	collect = read_and_collect(fd, collect);
-	if (!collect || !collect[0])
-		return (ft_free(&collect), NULL);
-	line = ft_line(collect);
-	collect = update_remaining(collect);
+	collect[fd] = read_and_collect(fd, collect[fd]);
+	if (!collect[fd] || !collect[0])
+		return (ft_free(&collect[fd]), NULL);
+	line = ft_line(collect[fd]);
+	collect[fd] = update_remaining(collect[fd]);
 	return (line);
 }
 
@@ -143,3 +143,4 @@ char	*get_next_line(int fd)
 // 	close(fd);
 // 	return (0);
 // }
+

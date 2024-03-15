@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_utils.c                              :+:    :+:            */
+/*   get_next_line_utils_bonus.c                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/01 15:35:39 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/15 16:02:56 by mona          ########   odam.nl         */
+/*   Created: 2024/03/15 15:48:09 by mona          #+#    #+#                 */
+/*   Updated: 2024/03/15 17:04:37 by mona          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen(const char *str)
 {
