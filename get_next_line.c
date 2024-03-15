@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/15 17:00:24 by mona          ########   odam.nl         */
+/*   Updated: 2024/03/15 17:22:19 by mona          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*read_and_collect(int fd, char *collect)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!collect)
-		collect = strdup("");
+		collect = ft_strdup("");
 	if (!buffer)
 		return (NULL);
 	bytes = 1;
@@ -92,14 +92,10 @@ char	*read_and_collect(int fd, char *collect)
 		if (bytes == -1)
 		{
 			ft_free(&buffer);
-			ft_free(&collect);
-			return (NULL);
+			return (ft_free(&collect), NULL);
 		}
 		buffer[bytes] = '\0';
 		temp = collect;
-		if(!temp)
-			ft_free(&temp);
-		
 		collect = ft_strjoin(collect, buffer);
 		ft_free (&temp);
 	}
@@ -124,7 +120,7 @@ char	*get_next_line(int fd)
 
 // int	main(void)
 // {
-// 	int		fd
+// 	int		fd;
 // 	char	*line;
 
 // 	fd = open("example.txt", O_RDONLY);

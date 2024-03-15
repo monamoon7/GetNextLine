@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:47:30 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/15 17:08:00 by mona          ########   odam.nl         */
+/*   Updated: 2024/03/15 17:46:05 by mona          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,10 @@ char	*read_and_collect(int fd, char *collect)
 		if (bytes == -1)
 		{
 			ft_free(&buffer);
-			ft_free(&collect);
-			return (NULL);
+			return (ft_free(&collect), NULL);
 		}
 		buffer[bytes] = '\0';
 		temp = collect;
-		if(!temp)
-			ft_free(&temp);
-		
 		collect = ft_strjoin(collect, buffer);
 		ft_free (&temp);
 	}
@@ -115,7 +111,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	collect[fd] = read_and_collect(fd, collect[fd]);
-	if (!collect[fd] || !collect[0])
+	if (!collect[fd] || !collect[fd][0])
 		return (ft_free(&collect[fd]), NULL);
 	line = ft_line(collect[fd]);
 	collect[fd] = update_remaining(collect[fd]);
