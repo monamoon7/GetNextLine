@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:47:58 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/15 16:59:26 by mona          ########   odam.nl         */
+/*   Updated: 2024/03/15 18:01:23 by mona          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <fcntl.h>
+# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #	define BUFFER_SIZE 42
