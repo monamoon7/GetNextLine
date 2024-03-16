@@ -6,13 +6,13 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:47:30 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/15 18:09:44 by mona          ########   odam.nl         */
+/*   Updated: 2024/03/16 11:52:25 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void ft_free(char **buffer)
+void	ft_free(char **buffer)
 {
 	if (*buffer)
 		free(*buffer);
@@ -118,37 +118,36 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	int	fd1;
-	int	fd2;
-	char	*line;
+// int	main(void)
+// {
+// 	int	fd1;
+// 	int	fd2;
+// 	char	*line;
 
-	fd1 = open("example1.txt", O_RDONLY);
-	fd2 = open("example2.txt", O_RDONLY);
-	if (fd1 == -1 || fd2 == -1)
-	{
-		printf("ERROR OPENING FILE(S)\n");
-		if (fd1 != -1)
-			close(fd1);
-		if (fd2 != -1)
-			close(fd2);
-		return (1);
-	}
-	while ((line = get_next_line(fd1)) != NULL)
-	{
-		printf("File 1: %s", line);
-		free(line);
-		line = get_next_line(fd2);
-		if (line == NULL)
-			break ;
-		printf("File 2: %s", line);
-		free(line);
-	}
-	if (line)
-		free(line);
-	close(fd1);
-	close(fd2);
-	return (0);
-}
-
+// 	fd1 = open("example1.txt", O_RDONLY);
+// 	fd2 = open("example2.txt", O_RDONLY);
+// 	if (fd1 == -1 || fd2 == -1)
+// 	{
+// 		printf("ERROR OPENING FILE(S)\n");
+// 		if (fd1 != -1)
+// 			close(fd1);
+// 		if (fd2 != -1)
+// 			close(fd2);
+// 		return (1);
+// 	}
+// 	while ((line = get_next_line(fd1)) != NULL)
+// 	{
+// 		printf("File 1: %s", line);
+// 		free(line);
+// 		line = get_next_line(fd2);
+// 		if (line == NULL)
+// 			break ;
+// 		printf("File 2: %s", line);
+// 		free(line);
+// 	}
+// 	if (line)
+// 		free(line);
+// 	close(fd1);
+// 	close(fd2);
+// 	return (0);
+// }

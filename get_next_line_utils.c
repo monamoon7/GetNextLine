@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:39 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/15 16:02:56 by mona          ########   odam.nl         */
+/*   Updated: 2024/03/16 11:49:26 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,24 @@ char	*ft_strchr(const char *str, int i)
 	return (NULL);
 }
 
-char    *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-    int     i;
-    int     len;
-    char    *str;
+	int		i;
+	int		len;
+	char	*str;
 
-    i = 0;
-    len = ft_strlen(s);
-    str = (char *)malloc(sizeof(*str) * (len + 1));
-    if (!str)
-        return (NULL);
-    while (i < len)
-    {
-        str[i] = s[i];
-        i++;
-    }
-    str[i] = '\0';
-    return (str);
+	i = 0;
+	len = ft_strlen(s);
+	str = (char *)malloc(sizeof(*str) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (i < len)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

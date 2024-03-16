@@ -6,13 +6,13 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/15 17:59:11 by mona          ########   odam.nl         */
+/*   Updated: 2024/03/16 12:28:20 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void ft_free(char **buffer)
+void	ft_free(char **buffer)
 {
 	if (*buffer)
 		free(*buffer);
