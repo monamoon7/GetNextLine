@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:25:15 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/16 11:44:51 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/16 15:03:34 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 # endif
 
 int		ft_strlen(const char *str);

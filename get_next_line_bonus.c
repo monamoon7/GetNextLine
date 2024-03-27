@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:47:30 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/16 11:52:25 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/27 16:59:55 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*collect[OPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	collect[fd] = read_and_collect(fd, collect[fd]);
 	if (!collect[fd] || !collect[fd][0])
