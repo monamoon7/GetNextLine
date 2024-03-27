@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/27 17:36:03 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/27 19:18:59 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_free(char **buffer)
 {
 	if (!buffer)
-		return;
+		return ;
 	if (*buffer)
 		free(*buffer);
 	*buffer = NULL;
@@ -27,13 +27,11 @@ char	*ft_line(char *remaining)
 	char	*line;
 
 	i = 0;
-	if (!remaining || !remaining[i])
+	if (!remaining || !remaining[0])
 		return (NULL);
 	while (remaining[i] && remaining[i] != '\n')
 		i++;
-	if (remaining[i] == '\n')
-		i++;
-	line = (char *)malloc(sizeof(char) * (i + 1));
+	line = (char *)malloc(sizeof(char) * (i + (remaining[i] == '\n') + 1));
 	if (!line)
 		return (NULL);
 	i = 0;

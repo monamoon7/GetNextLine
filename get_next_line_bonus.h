@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:47:58 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/16 11:51:19 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/27 18:54:56 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 1024
 # endif
 
 int		ft_strlen(const char *str);

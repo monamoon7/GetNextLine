@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:48:09 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/27 17:28:25 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/27 17:43:25 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strlen(const char *str)
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (!str || !str[i])
 		return (0);
 	while (str[i])
 		i++;
