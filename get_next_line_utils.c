@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:39 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/28 17:53:37 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/28 18:00:25 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,6 @@ char	*ft_strchr(const char *str, int i)
 	if (i == '\0')
 		return ((char *)str);
 	return (NULL);
-}
-
-char	*ft_strdup(const char *s)
-{
-	int		i;
-	int		len;
-	char	*str;
-
-	i = 0;
-	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	while (i < len)
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:47:58 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/28 17:51:23 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/28 18:00:36 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 
 int		ft_strlen(const char *str);
 char	*ft_strchr(const char *str, int i);
-char	*ft_strdup(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
 char	*ft_free(char **buffer);
