@@ -6,19 +6,20 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/28 14:34:21 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/28 17:53:01 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_free(char **buffer)
+char	*ft_free(char **buffer)
 {
 	if (!buffer)
-		return ;
+		return (NULL);
 	if (*buffer)
 		free(*buffer);
 	*buffer = NULL;
+	return (NULL);
 }
 
 char	*ft_line(char *remaining)
@@ -59,14 +60,11 @@ char	*update_remaining(char *remaining)
 	while (remaining[i] && remaining[i] != '\n')
 		i++;
 	if (!remaining || !remaining[i])
-	{
-		ft_free(&remaining);
-		return (NULL);
-	}
+		return (ft_free(&remaining));
 	new_remaining = (char *)malloc(sizeof(char)
 			* (ft_strlen(remaining) - i + 1));
 	if (!new_remaining)
-		return (NULL);
+		return (ft_free(&remaining));
 	i++;
 	new_start = 0;
 	while (remaining[i])
@@ -83,24 +81,21 @@ char	*read_and_collect(int fd, char *collect)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (ft_free(&collect), NULL);
-	if (!collect)
-		collect = ft_strdup("");
+		return (ft_free(&collect));
+	buffer[0] = '\0';
 	bytes = 1;
-	while (!ft_strchr(collect, '\n') && bytes > 0)
+	while (!ft_strchr(buffer, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes > 0)
 		{
 			buffer[bytes] = '\0';
 			collect = ft_strjoin(collect, buffer);
-			if (collect == NULL)
-				return (ft_free(&buffer), NULL);
 		}
 	}
 	ft_free (&buffer);
 	if (bytes == -1)
-		return (ft_free(&collect), NULL);
+		return (ft_free(&collect));
 	return (collect);
 }
 
@@ -109,50 +104,52 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*collect;
 
-	if (BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	collect = read_and_collect(fd, collect);
-	if (!collect || !collect[0])
-		return (ft_free(&collect), NULL);
+	if (!collect)
+		return (NULL);
 	line = ft_line(collect);
+	if (!line)
+		return (ft_free(&collect));
 	collect = update_remaining(collect);
 	return (line);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
 
-	fd = open("a", O_RDONLY);
-	if (fd == -1)
-	{
-		printf("ERROR OPENING FILE!\n");
-		return (1);
-	}
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		printf("here\n");
-		printf(">%s<", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	fd = open("extra", O_RDONLY);
-	if (fd == -1)
-	{
-		printf("TEST\n");
-		printf("ERROR OPENING FILE!\n");
-		return (1);
-	}
-	line = get_next_line(fd);
-		while (line != NULL)
-	{
-		printf("here\n");
-		printf(">%s<", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	return (0);
-}
+// 	fd = open("a", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		printf("ERROR OPENING FILE!\n");
+// 		return (1);
+// 	}
+// 	line = get_next_line(fd);
+// 	while (line != NULL)
+// 	{
+// 		printf("here\n");
+// 		printf(">%s<", line);
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	close(fd);
+// 	fd = open("extra", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		printf("TEST\n");
+// 		printf("ERROR OPENING FILE!\n");
+// 		return (1);
+// 	}
+// 	line = get_next_line(fd);
+// 		while (line != NULL)
+// 	{
+// 		printf("here\n");
+// 		printf(">%s<", line);
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	return (0);
+// }

@@ -6,19 +6,20 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:47:30 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/28 14:31:13 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/28 17:52:25 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	ft_free(char **buffer)
+char	*ft_free(char **buffer)
 {
 	if (!buffer)
-		return ;
+		return (NULL);
 	if (*buffer)
 		free(*buffer);
 	*buffer = NULL;
+	return (NULL);
 }
 
 char	*ft_line(char *remaining)
@@ -58,15 +59,12 @@ char	*update_remaining(char *remaining)
 	i = 0;
 	while (remaining[i] && remaining[i] != '\n')
 		i++;
-	if (!remaining[i] || !remaining[i])
-	{
-		ft_free(&remaining);
-		return (NULL);
-	}
+	if (!remaining || !remaining[i])
+		return (ft_free(&remaining));
 	new_remaining = (char *)malloc(sizeof(char)
 			* (ft_strlen(remaining) - i + 1));
 	if (!new_remaining)
-		return (NULL);
+		return (ft_free(&remaining));
 	i++;
 	new_start = 0;
 	while (remaining[i])
@@ -83,24 +81,21 @@ char	*read_and_collect(int fd, char *collect)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (ft_free(&collect), NULL);
-	if (!collect)
-		collect = ft_strdup("");
+		return (ft_free(&collect));
+	buffer[0] = '\0';
 	bytes = 1;
-	while (!ft_strchr(collect, '\n') && bytes > 0)
+	while (!ft_strchr(buffer, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes > 0)
 		{
 			buffer[bytes] = '\0';
 			collect = ft_strjoin(collect, buffer);
-			if (collect == NULL)
-				return (ft_free(&buffer), NULL);
 		}
 	}
 	ft_free (&buffer);
 	if (bytes == -1)
-		return (ft_free(&collect), NULL);
+		return (ft_free(&collect));
 	return (collect);
 }
 
@@ -112,9 +107,11 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	collect[fd] = read_and_collect(fd, collect[fd]);
-	if (!collect[fd] || !collect[fd][0])
-		return (ft_free(&collect[fd]), NULL);
+	if (!collect[fd])
+		return (NULL);
 	line = ft_line(collect[fd]);
+	if (!line)
+		return (ft_free(&collect[fd]));
 	collect[fd] = update_remaining(collect[fd]);
 	return (line);
 }
