@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:48:09 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/27 17:43:25 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/28 14:32:51 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strdup(const char *s)
 
 	i = 0;
 	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(*str) * (len + 1));
+	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
 	while (i < len)
@@ -69,13 +69,14 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (s1);
 	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
-		return (NULL);
+		return (ft_free(&s1), ft_free(&s2), NULL);
 	i = 0;
-	while (s1[i])
+	while (s1[i] && s1 != NULL)
 	{
 		str[i] = s1[i];
 		i++;
 	}
+	ft_free(&s1);
 	j = 0;
 	while (s2[j])
 	{

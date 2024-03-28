@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/15 15:47:30 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/27 16:59:55 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/28 14:31:13 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_free(char **buffer)
 {
+	if (!buffer)
+		return ;
 	if (*buffer)
 		free(*buffer);
 	*buffer = NULL;
@@ -25,11 +27,11 @@ char	*ft_line(char *remaining)
 	char	*line;
 
 	i = 0;
-	if (!remaining[i])
+	if (!remaining || !remaining[0])
 		return (NULL);
 	while (remaining[i] && remaining[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
+	line = (char *)malloc(sizeof(char) * (i + (remaining[i] == '\n') + 1));
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -56,9 +58,9 @@ char	*update_remaining(char *remaining)
 	i = 0;
 	while (remaining[i] && remaining[i] != '\n')
 		i++;
-	if (!remaining[i])
+	if (!remaining[i] || !remaining[i])
 	{
-		free (remaining);
+		ft_free(&remaining);
 		return (NULL);
 	}
 	new_remaining = (char *)malloc(sizeof(char)
@@ -70,7 +72,7 @@ char	*update_remaining(char *remaining)
 	while (remaining[i])
 		new_remaining[new_start++] = remaining[i++];
 	new_remaining[new_start] = '\0';
-	free (remaining);
+	ft_free(&remaining);
 	return (new_remaining);
 }
 
@@ -78,28 +80,27 @@ char	*read_and_collect(int fd, char *collect)
 {
 	char	*buffer;
 	int		bytes;
-	char	*temp;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (ft_free(&collect), NULL);
 	if (!collect)
 		collect = ft_strdup("");
-	if (!buffer)
-		return (NULL);
 	bytes = 1;
-	while (!ft_strchr(collect, '\n') && bytes != 0)
+	while (!ft_strchr(collect, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes == -1)
+		if (bytes > 0)
 		{
-			ft_free(&buffer);
-			return (ft_free(&collect), NULL);
+			buffer[bytes] = '\0';
+			collect = ft_strjoin(collect, buffer);
+			if (collect == NULL)
+				return (ft_free(&buffer), NULL);
 		}
-		buffer[bytes] = '\0';
-		temp = collect;
-		collect = ft_strjoin(collect, buffer);
-		ft_free (&temp);
 	}
 	ft_free (&buffer);
+	if (bytes == -1)
+		return (ft_free(&collect), NULL);
 	return (collect);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mona <mona@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 15:35:36 by mona          #+#    #+#                 */
-/*   Updated: 2024/03/27 19:18:59 by moshagha      ########   odam.nl         */
+/*   Updated: 2024/03/28 14:34:21 by moshagha      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,40 +119,40 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*line;
+int	main(void)
+{
+	int		fd;
+	char	*line;
 
-// 	fd = open("a", O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		printf("ERROR OPENING FILE!\n");
-// 		return (1);
-// 	}
-// 	line = get_next_line(fd);
-// 	while (line != NULL)
-// 	{
-// 		printf("here\n");
-// 		printf(">%s<", line);
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	close(fd);
-// 	fd = open("extra", O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		printf("TEST\n");
-// 		printf("ERROR OPENING FILE!\n");
-// 		return (1);
-// 	}
-// 	line = get_next_line(fd);
-// 		while (line != NULL)
-// 	{
-// 		printf("here\n");
-// 		printf(">%s<", line);
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	return (0);
-// }
+	fd = open("a", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("ERROR OPENING FILE!\n");
+		return (1);
+	}
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		printf("here\n");
+		printf(">%s<", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	fd = open("extra", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("TEST\n");
+		printf("ERROR OPENING FILE!\n");
+		return (1);
+	}
+	line = get_next_line(fd);
+		while (line != NULL)
+	{
+		printf("here\n");
+		printf(">%s<", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (0);
+}
